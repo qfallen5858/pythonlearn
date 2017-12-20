@@ -25,7 +25,7 @@ SECRET_KEY = 'u!1ude#=tafslc^9m1w!@kr78r44lie(5bxx284wou*+!3fzyh'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['119.29.58.35']
+ALLOWED_HOSTS = ['119.29.58.35','127.0.0.1']
 
 
 # Application definition
@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'polls'
 ]
 
 MIDDLEWARE = [
@@ -76,9 +77,20 @@ WSGI_APPLICATION = 'djlearn.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'HOST': '119.29.58.35',
+        'PORT': '3306',
+        'NAME': 'djlearn',
+        'USER': 'allen',
+        'PASSWORD': 'Lanlan1109',
+        'OPTIONS': {
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+        },
     }
+    #'default': {
+    #    'ENGINE': 'django.db.backends.sqlite3',
+    #    'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    #}
 }
 
 
