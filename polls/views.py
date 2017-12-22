@@ -4,14 +4,15 @@ from django.template import RequestContext, loader
 from django.urls import reverse
 from django.views import generic
 from .models import Question, Choice
+from django.utils import timezone
 # Create your views here.
 
 class IndexView(generic.ListView):
-    template_name = 'polls/index2.html'
+    template_name = 'polls/index.html'
     context_object_name = 'latest_question_list'
 
     def get_queryset(self):
-        return Question.objects.order_by('-pub_date')[:5]
+        return Question.objects.filter(pub_date__lte=timezone.now()).order_by('-pub_date')[:5]
 
 class DetailView(generic.DetailView):
     model = Question
@@ -19,13 +20,13 @@ class DetailView(generic.DetailView):
 
 class ResultView(generic.DetailView):
     model = Question
-    template_name = 'polls/results.html.html'
+    template_name = 'polls/results.html'
 
 
 
 def index(request):
     latest_question_list = Question.objects.order_by('-pub_date')
-    template = loader.get_template('polls/index2.html')
+    template = loader.get_template('polls/index.html')
     context = RequestContext(request, {
         'lastest_question_list': latest_question_list
     })
